@@ -1,16 +1,9 @@
-from playwright.sync_api import sync_playwright
+import pytest
+from pages.signup_page import SignupPage
 
-def test_signup_page_form():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
+@pytest.mark.regression
+def test_signup_page_form(page):
+    signup_page = SignupPage(page)
+    signup_page.load()
 
-        page.goto("https://bdresellhub.com/register")
-
-        assert page.locator("body").is_visible()
-
-        # Try common input fields
-        inputs = page.locator("input")
-        print(f"Total inputs found: {inputs.count()}")
-
-        browser.close()
+    assert page.locator("body").is_visible()
