@@ -1,19 +1,13 @@
 from playwright.sync_api import sync_playwright
+from pages.login_page import LoginPage
 
-def test_login_form():
+def test_login_pom():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
 
-        page.goto("https://bdresellhub.com/login")
-
-        # input email
-        page.fill('input[type="email"]', "test@example.com")
-
-        # input password
-        page.fill('input[type="password"]', "123456")
-
-        # click login
-        page.click('button[type="submit"]')
+        login_page = LoginPage(page)
+        login_page.load()
+        login_page.login("test@example.com", "123456")
 
         browser.close()
