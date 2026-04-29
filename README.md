@@ -36,3 +36,15 @@ Final HTML report is available in this project:
 
 docs/final-report.html
 
+
+
+\## 📊 Final Combined Report
+
+
+
+UI and API automation test report:
+
+
+
+docs/combined-ui-api-report.html
+
