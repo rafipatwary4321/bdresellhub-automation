@@ -2,9 +2,10 @@ import pytest
 
 @pytest.mark.regression
 def test_product_details_page(page):
-    page.goto("https://bdresellhub.com/", wait_until="networkidle")
+    page.goto("https://bdresellhub.com/")  # REMOVE networkidle
 
-    # Try to find clickable cards/links
+    page.wait_for_load_state("domcontentloaded")
+
     items = page.locator("a")
 
     if items.count() > 0:
@@ -13,7 +14,8 @@ def test_product_details_page(page):
 
         if href and href.startswith("http"):
             first_item.click()
-            page.wait_for_load_state("networkidle")
+
+            page.wait_for_load_state("domcontentloaded")
 
             assert page.locator("body").is_visible()
         else:
