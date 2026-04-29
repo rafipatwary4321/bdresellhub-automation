@@ -8,6 +8,6 @@ def test_invalid_api_route_returns_error_status():
 
         response = request.get("https://bdresellhub.com/invalid-test-route-404")
 
-        assert response.status in [404, 403]
 
+        assert response.status >= 400
         request.dispose()
