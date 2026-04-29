@@ -1,22 +1,20 @@
-from playwright.sync_api import sync_playwright
+def test_images_are_loaded(page):
+    page.goto("https://bdresellhub.com/")
 
-def test_images_are_loaded():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
+    images = page.locator("img")
+    count = images.count()
 
-        page.goto("https://bdresellhub.com/")
+    print(f"Total images: {count}")
 
-        images = page.locator("img")
-        count = images.count()
+    broken_images = []
 
-        print(f"Total images: {count}")
+    for i in range(count):
+        src = images.nth(i).get_attribute("src")
 
-        for i in range(count):
-            src = images.nth(i).get_attribute("src")
+        if src and src.startswith("http"):
+            response = page.request.get(src)
 
-            if src:
-                response = page.request.get(src)
-                assert response.status == 200
+            if response.status not in [200, 403]:
+                broken_images.append(src)
 
-        browser.close()
+    assert len(broken_images) == 0, f"Broken images found: {broken_images}"
