@@ -48,3 +48,13 @@ UI and API automation test report:
 
 docs/combined-ui-api-report.html
 
+\## 📊 Full Final Report
+
+
+
+Full UI + API automation report:
+
+
+
+docs/full-final-report.html
+
