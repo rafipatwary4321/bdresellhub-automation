@@ -24,5 +24,14 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps
 
-      - name: Run tests
-        run: pytest
+      - name: Create report folder
+        run: mkdir -p docs
+
+      - name: Run tests with HTML report
+        run: pytest -v --html=docs/github-actions-report.html --self-contained-html
+
+      - name: Upload HTML report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: automation-test-report
+          path: docs/github-actions-report.html
